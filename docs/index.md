@@ -22,17 +22,8 @@ sd_hide_title: true
 :::{grid-item}
 :columns: 12 8 8 8
 :child-align: justify
-:class: sd-fs-5
 
 ```{rubric} Truss - Containers for serving Machine Learning Models
-```
-
-```{button-ref} SUMMARY
-:ref-type: doc
-:color: primary
-:class: sd-rounded-pill
-
-go to summary
 ```
 
 
@@ -50,7 +41,7 @@ uploaded in our serving environment or onto another container serving platform
 
 ```{toctree}
 :hidden:
-summary.md
+summary
 ```
 
 ```{toctree}

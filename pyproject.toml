@@ -33,6 +33,10 @@ flake8 = "^4.0.1"
 ipdb = "^0.13.9"
 coverage = "^6.4.1"
 pytest-cov = "^3.0.0"
+Sphinx = "<5"
+myst-parser = "^0.18.0"
+sphinx_design = "^0.2.0"
+sphinx-book-theme = "^0.3.2"
 
 [tool.poetry.scripts]
 truss = 'truss.cli:cli_group'

@@ -6,9 +6,8 @@
 
 from datetime import date
 
-from sphinx.application import Sphinx
-
 from myst_parser import __version__
+from sphinx.application import Sphinx
 
 # -- Project information -----------------------------------------------------
 
@@ -75,7 +74,6 @@ myst_enable_extensions = [
     "colon_fence",
     "smartquotes",
     "replacements",
-    "linkify",
     "strikethrough",
     "substitution",
     "tasklist",
@@ -125,11 +123,8 @@ nitpick_ignore = [
 
 def setup(app: Sphinx):
     """Add functions to the Sphinx setup."""
-    from myst_parser._docs import (
-        DirectiveDoc,
-        DocutilsCliHelpDirective,
-        MystConfigDirective,
-    )
+    from myst_parser._docs import (DirectiveDoc, DocutilsCliHelpDirective,
+                                   MystConfigDirective)
 
     #TODO(philip) - add custom css
     # app.add_css_file("custom.css")
