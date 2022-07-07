@@ -1,3 +1,4 @@
+<!-- TODO(philip) lay out structure -->
 # Table of contents
 
 * [What is a Truss?](README.md)
