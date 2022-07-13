@@ -4,7 +4,7 @@
 	"name": "Python 3",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"args": { "OS_VARIANT": "ubuntu20.04", "CUDA_VERSION": "11.6.0" }, 
+		"args": { "VARIANT": "3.9" }, 
 		"context": ".."
 	},
 
@@ -52,6 +52,7 @@
 	"runArgs": [
 		"--privileged",
 		"--gpus",
+		"--ipc=host",
 		"all"
 	]
 }
