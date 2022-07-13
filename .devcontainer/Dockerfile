@@ -1,4 +1,6 @@
 ARG VARIANT="3.9-bullseye"
+FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
+
 ARG CUDA_VERSION="11.0.3"
 FROM nvidia/cuda:${CUDA_VERSION}-devel-${VARIANT}
 
@@ -7,7 +9,6 @@ FROM nvidia/cuda:${CUDA_VERSION}-devel-${VARIANT}
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
 COPY .devcontainer/library-scripts/*.sh /tmp/library-scripts/
 
