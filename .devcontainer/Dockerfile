@@ -6,8 +6,8 @@ FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${UBUNTU_VERS
 
 ARG VARIANT="3.9"
 
-
 ENV LANG="C.UTF-8"
+ENV PATH="/usr/local/bin:$PATH"
 
 # Copy library scripts to execute
 COPY .devcontainer/library-scripts/*.sh .devcontainer/library-scripts/*.env /tmp/library-scripts/
@@ -33,9 +33,16 @@ RUN apt-get update && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
+# Setup default python tools in a venv via pipx to avoid conflicts
+ENV PIPX_HOME=/usr/local/py-utils \
+    PIPX_BIN_DIR=/usr/local/py-utils/bin
+ENV PATH=${PATH}:${PIPX_BIN_DIR}
+RUN bash /tmp/library-scripts/python-debian.sh "${VARIANT}" "/usr/local/python" "${PIPX_HOME}" "${USERNAME}" \ 
+    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+
 USER vscode
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-ENV PATH=/home/vscode/.poetry/bin:$PATH
 
 USER root
 
