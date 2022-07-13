@@ -19,7 +19,7 @@ COPY .devcontainer/library-scripts/*.sh .devcontainer/library-scripts/*.env /tmp
 ARG INSTALL_ZSH="false"
 ARG UPGRADE_PACKAGES="false"
 ARG USE_MOBY="true"
-ARG USERNAME=root
+ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -40,7 +40,8 @@ ENV PATH=${PATH}:${PIPX_BIN_DIR}
 RUN bash /tmp/library-scripts/python-debian.sh "${VARIANT}" "/usr/local/python" "${PIPX_HOME}" "${USERNAME}" \ 
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-USER root
+
+USER vscode
 
 VOLUME [ "/var/lib/docker" ]
 
