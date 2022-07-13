@@ -7,11 +7,7 @@ FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${UBUNTU_VERS
 ARG VARIANT="3.9"
 
 
-ARG VARIANT="3.9"
-
 ENV LANG="C.UTF-8"
-
-FROM mcr.microsoft.com/vscode/devcontainers/cuda:${VARIANT}
 
 # Copy library scripts to execute
 COPY .devcontainer/library-scripts/*.sh .devcontainer/library-scripts/*.env /tmp/library-scripts/
