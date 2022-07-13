@@ -1,7 +1,5 @@
 ARG VARIANT="3.9-bullseye"
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
-
-ARG CUDA_VERSION="11.0.3"
 FROM nvidia/cuda:${CUDA_VERSION}-devel-${VARIANT}
 
 
