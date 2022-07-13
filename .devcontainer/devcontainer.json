@@ -1,20 +1,27 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3
 {
 	"name": "Python 3",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"args": { "VARIANT": "3.9" }, 
-		"context": ".."
+		"context": "..",
+		"args": { 
+			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
+			"VARIANT": "3.9",
+			// Options
+			"NODE_VERSION": "none"
+		}
 	},
-
-	"overrideCommand": false,
+	"runArgs": [
+		// Requires WSL2, see https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements
+		"--gpus=all",
+		// If multiprocessing used, see https://github.com/pytorch/pytorch#using-pre-built-images
+		"--ipc=host",
+		//"--shm-size=4gb"
+	],
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"editor.tabSize": 4,
-		"editor.insertSpaces": true,
+	"settings": { 
 		"python.defaultInterpreterPath": "/usr/local/bin/python",
+		"python.languageServer": "Pylance",
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
 		"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
@@ -32,27 +39,16 @@
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance",
-		"humao.rest-client",
-		"VisualStudioExptTeam.vscodeintellicode",
-		"vscodevim.vim",
-		"eamodio.gitlens", 
-		"ms-vscode.cpptools",
-		"ms-vscode.cmake-tools",
-		"NVIDIA.nsight-vscode-edition"
+		"ms-toolsai.jupyter",
+		"visualstudioexptteam.vscodeintellicode",
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bin/codespace_post_create.sh",
+	// "postCreateCommand": "pip3 install --user -r requirements.txt",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode",
-	"runArgs": [
-		"--privileged",
-		"--gpus",
-		"--ipc=host",
-		"all"
-	]
+	"remoteUser": "vscode"
 }
