@@ -19,7 +19,7 @@ COPY .devcontainer/library-scripts/*.sh .devcontainer/library-scripts/*.env /tmp
 ARG INSTALL_ZSH="false"
 ARG UPGRADE_PACKAGES="false"
 ARG USE_MOBY="true"
-ARG USERNAME=vscode
+ARG USERNAME=root
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -39,10 +39,6 @@ ENV PIPX_HOME=/usr/local/py-utils \
 ENV PATH=${PATH}:${PIPX_BIN_DIR}
 RUN bash /tmp/library-scripts/python-debian.sh "${VARIANT}" "/usr/local/python" "${PIPX_HOME}" "${USERNAME}" \ 
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
-
-
-USER vscode
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
 USER root
 
