@@ -4,7 +4,7 @@
 	"name": "Python 3",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"args": { "VARIANT": "ubuntu20.04", "CUDA_VERSION": "11.6.0" }, 
+		"args": { "OS_VARIANT": "ubuntu20.04", "CUDA_VERSION": "11.6.0" }, 
 		"context": ".."
 	},
 
