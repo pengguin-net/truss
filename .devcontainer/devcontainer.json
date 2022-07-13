@@ -4,8 +4,10 @@
 	"name": "Python 3",
 	"build": {
 		"dockerfile": "Dockerfile",
+		"args": { "VARIANT": "ubuntu20.04", "CUDA_VERSION": "11.6.0" }, 
 		"context": ".."
 	},
+
 	"overrideCommand": false,
 
 	// Set *default* container specific settings.json values on container create.
@@ -33,7 +35,10 @@
 		"humao.rest-client",
 		"VisualStudioExptTeam.vscodeintellicode",
 		"vscodevim.vim",
-		"eamodio.gitlens"
+		"eamodio.gitlens", 
+		"ms-vscode.cpptools",
+		"ms-vscode.cmake-tools",
+		"NVIDIA.nsight-vscode-edition"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -44,5 +49,9 @@
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
-	"runArgs": ["--privileged"]
+	"runArgs": [
+		"--privileged",
+		"--gpus",
+		"all"
+	]
 }
