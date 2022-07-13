@@ -1,6 +1,7 @@
 ARG VARIANT="3.9-bullseye"
+ARG CUDA_VERSION="11.0.3"
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
-FROM nvidia/cuda:${CUDA_VERSION}-devel-${VARIANT}
+FROM nvidia/cuda:11.0-devel-${VARIANT}
 
 
 # [Optional] Uncomment this section to install additional OS packages.
