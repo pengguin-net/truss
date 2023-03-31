@@ -18,7 +18,6 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 from transformers import AutoModelWithLMHead, AutoTokenizer, pipeline
 from truss.build import create, init
-from truss.constants import MODEL_DOCKERFILE_NAME
 from truss.contexts.image_builder.serving_image_builder import ServingImageBuilder
 from truss.truss_config import DEFAULT_BUNDLED_PACKAGES_DIR
 from truss.types import Example
@@ -676,10 +675,13 @@ def truss_container_fs(tmp_path):
     ServingImageBuilder(test_truss_dir).prepare_image_build_dir(build_dir)
 
     # Now we extract and execute the relevant COPY statements from the templated DOCKERFILE
-    with (build_dir / MODEL_DOCKERFILE_NAME).open() as f:
-        copy_statements = [line for line in f.readlines() if line.startswith("COPY")]
+    app_copies = []
+    with (build_dir / "Dockerfile").open() as f:
+        for line in f.readlines():
+            if line.startswith("COPY"):
+                app_copies.append(line)
 
-    for copy in copy_statements:
+    for copy in app_copies:
         _, src, dst = copy.split()
         src = src.replace("./", "", 1)
         dst = dst.replace("/", "", 1)
