@@ -11,6 +11,30 @@ Meet Truss, a seamless bridge from model development to model delivery. Truss pr
 
 Get started with the [end-to-end tutorial](https://truss.baseten.co/e2e).
 
+
+## DirectML
+For devs using Windows, you can use DirectML for testing.
+
+pass gpu=false, install pytorch-directml or the tensorflow equivalent.
+
+use this code
+
+```python
+tr.docker_run(
+    environment_variables={
+        "LD_LIBRARY_PATH": "/usr/lib/wsl/lib"
+    },
+    mounts=[[
+        "type=bind",
+        "src=/usr/lib/wsl",
+        "dst=/usr/lib/wsl",
+    ]],
+    devices=[
+        "/dev/dxg"
+    ]
+)
+```
+
 ## What can I do with Truss?
 
 If you've ever tried to get a model out of a Jupyter notebook, Truss is for you.
