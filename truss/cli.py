@@ -1,13 +1,10 @@
-import json
 import logging
-import os
 from functools import wraps
 from pathlib import Path
-from typing import Callable, List, Optional, Union
+from typing import Callable, List, Optional
 
 import click
 import truss
-import yaml
 
 logging.basicConfig(level=logging.INFO)
 
@@ -130,8 +127,11 @@ def build_image(target_directory: str, build_dir: Path, tag) -> None:
 @click.option(
     "--attach", is_flag=True, default=False, help="Flag for attaching the process"
 )
+@click.option(
+    "--device", required=False, multiple=True, help="Device to run the image on", type=click.Path(exists=True, dir_okay=False)
+)    
 @error_handling
-def run_image(target_directory: str, build_dir: Path, tag, port, attach) -> None:
+def run_image(target_directory: str, build_dir: Path, tag, port, attach, devices: Optional[List[str]] = None) -> None:
     """
     Runs the docker image for a Truss.
 
@@ -147,7 +147,7 @@ def run_image(target_directory: str, build_dir: Path, tag, port, attach) -> None
         click.confirm(
             f"Container already exists at {urls}. Are you sure you want to continue?"
         )
-    tr.docker_run(build_dir=build_dir, tag=tag, local_port=port, detach=not attach)
+    tr.docker_run(build_dir=build_dir, tag=tag, local_port=port, detach=not attach, devices=devices)
 
 
 @cli_group.command()

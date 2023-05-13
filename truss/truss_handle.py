@@ -169,6 +169,7 @@ class TrussHandle:
         local_port: int = INFERENCE_SERVER_PORT,
         detach=True,
         patch_ping_url: Optional[str] = None,
+        devices: Optional[List[str]] = None,
     ):
         """
         Builds a docker image and runs it as a container. For control trusses,
@@ -191,6 +192,11 @@ class TrussHandle:
         if container_if_patched is not None:
             container = container_if_patched
         else:
+            optional_args = {
+                "devices": devices,
+            }
+            optional_args = {k: v for k, v in optional_args.items() if v is not None}
+
             image = self.build_serving_docker_image(build_dir=build_dir, tag=tag)
             secrets_mount_dir_path = _prepare_secrets_mount_dir()
             publish_ports = [[local_port, INFERENCE_SERVER_PORT]]
@@ -218,6 +224,7 @@ class TrussHandle:
                 gpus="all" if self._spec.config.resources.use_gpu else None,
                 envs=envs,
                 add_hosts=[("host.docker.internal", "host-gateway")],
+                **optional_args,
             )
             logger.info(
                 f"Model server started on port {local_port}, docker container id {container.id}"

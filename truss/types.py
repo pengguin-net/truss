@@ -15,7 +15,8 @@ class ModelFrameworkType(Enum):
     XGBOOST = "xgboost"
     LIGHTGBM = "lightgbm"
     MLFLOW = "mlflow"
-    CUSTOM = "custom"
+    PYTORCH_DIRECTML = "pytorch_directml"
+    CUSTOM = "custom"    
 
 
 @dataclass
