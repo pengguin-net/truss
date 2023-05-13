@@ -170,6 +170,8 @@ class TrussHandle:
         detach=True,
         patch_ping_url: Optional[str] = None,
         devices: Optional[List[str]] = None,
+        mounts: Optional[List[List[str]]] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
     ):
         """
         Builds a docker image and runs it as a container. For control trusses,
@@ -219,10 +221,14 @@ class TrussHandle:
                         "type=bind",
                         f"src={str(secrets_mount_dir_path)}",
                         "target=/secrets",
-                    ]
+                    ],
+                    *(mounts or []),
                 ],
                 gpus="all" if self._spec.config.resources.use_gpu else None,
-                envs=envs,
+                envs={
+                    **envs,
+                    **(environment_variables or {}),
+                },
                 add_hosts=[("host.docker.internal", "host-gateway")],
                 **optional_args,
             )
