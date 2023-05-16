@@ -1091,7 +1091,6 @@ def _wait_for_docker_build(container) -> None:
 
 
 @retry(
-    stop=stop_after_delay(120),
     wait=wait_fixed(2),
     retry=(
         retry_if_result(lambda response: response.status_code == 503)
