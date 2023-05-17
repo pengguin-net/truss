@@ -255,6 +255,9 @@ class TrussHandle:
         local_port: int = INFERENCE_SERVER_PORT,
         detach: bool = True,
         patch_ping_url: Optional[str] = None,
+        devices: Optional[List[str]] = None,
+        mounts: Optional[List[List[str]]] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
     ):
         if use_docker:
             return self.docker_predict(
@@ -264,6 +267,9 @@ class TrussHandle:
                 local_port=local_port,
                 detach=detach,
                 patch_ping_url=patch_ping_url,
+                devices=devices,
+                mounts=mounts,
+                environment_variables=environment_variables,
             )
         else:
             return self.server_predict(request)
@@ -282,6 +288,9 @@ class TrussHandle:
         local_port: int = INFERENCE_SERVER_PORT,
         detach: bool = True,
         patch_ping_url: Optional[str] = None,
+        devices: Optional[List[str]] = None,
+        mounts: Optional[List[List[str]]] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
         binary: bool = False,
     ):
         """
@@ -310,6 +319,9 @@ class TrussHandle:
                 local_port=local_port,
                 detach=detach,
                 patch_ping_url=patch_ping_url,
+                devices=devices,
+                mounts=mounts,
+                environment_variables=environment_variables,
             )
         model_base_url = _get_url_from_container(container)
 
