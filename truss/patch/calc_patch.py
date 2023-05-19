@@ -19,9 +19,11 @@ from truss.truss_config import TrussConfig
 from truss.truss_spec import TrussSpec
 
 logger: logging.Logger = logging.getLogger(__name__)
-PYCACHE_IGNORE_PATTERNS = [
+IGNORE_PATTERNS = [
     "**/__pycache__/**/*",
     "**/__pycache__/**",
+    "*.npz",
+    "*.tiktoken"
 ]
 
 
@@ -47,7 +49,7 @@ def calc_truss_patch(
         return str(path.relative_to(truss_dir))
 
     if ignore_patterns is None:
-        ignore_patterns = PYCACHE_IGNORE_PATTERNS
+        ignore_patterns = IGNORE_PATTERNS
 
     changed_paths = _calc_changed_paths(
         truss_dir,
